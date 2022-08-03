@@ -7,27 +7,27 @@ import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 
 private val DarkColorPalette = darkColors(
-    primary = appyx_yellow1,
-    primaryVariant = appyx_yellow2,
-    secondary = appyx_yellow2,
-    background = appyx_dark,
-    surface = appyx_dark,
-    onPrimary = appyx_bright,
-    onSecondary = appyx_bright,
-    onBackground = appyx_bright,
-    onSurface = appyx_bright,
+    primary = md_yellow_A700,
+    primaryVariant = md_yellow_A400,
+    secondary = md_yellow_A400,
+    background = md_blue_grey_900,
+    surface = md_blue_grey_900,
+    onPrimary = md_yellow_50,
+    onSecondary = md_yellow_50,
+    onBackground = md_yellow_50,
+    onSurface = md_yellow_50,
 )
 
 private val LightColorPalette = lightColors(
-    primary = appyx_yellow1,
-    primaryVariant = appyx_yellow2,
-    secondary = appyx_yellow2,
-    background = appyx_bright,
-    surface = appyx_bright,
-    onPrimary = appyx_dark,
-    onSecondary = appyx_dark,
-    onBackground = appyx_dark,
-    onSurface = appyx_dark,
+    primary = md_yellow_A700,
+    primaryVariant = md_yellow_A400,
+    secondary = md_yellow_A400,
+    background = md_yellow_50,
+    surface = md_yellow_50,
+    onPrimary = md_blue_grey_900,
+    onSecondary = md_blue_grey_900,
+    onBackground = md_blue_grey_900,
+    onSurface = md_blue_grey_900,
 )
 
 @Composable

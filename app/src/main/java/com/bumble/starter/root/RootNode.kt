@@ -1,6 +1,8 @@
 package com.bumble.starter.root
 
 import android.os.Parcelable
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,7 +16,9 @@ import com.bumble.appyx.core.node.Node
 import com.bumble.appyx.core.node.ParentNode
 import com.bumble.appyx.routingsource.backstack.BackStack
 import com.bumble.appyx.routingsource.backstack.activeRouting
-import com.bumble.appyx.routingsource.backstack.operation.replace
+import com.bumble.appyx.routingsource.backstack.operation.pop
+import com.bumble.appyx.routingsource.backstack.operation.push
+import com.bumble.appyx.routingsource.backstack.transitionhandler.rememberBackstackFader
 import com.bumble.starter.child.ChildNode1
 import com.bumble.starter.child.ChildNode2
 import com.bumble.starter.root.RootNode.Routing
@@ -36,56 +40,6 @@ class RootNode(
     routingSource = backStack
 ) {
 
-    private var animationJob: Job? = null
-
-    init {
-        initAnimation()
-    }
-
-    private fun initAnimation() {
-        lifecycle
-            .coroutineScope
-            .launch {
-                delay(2000)
-                launchAnimation()
-            }
-    }
-
-    private fun launchAnimation() {
-        animationJob = lifecycle
-            .coroutineScope
-            .launch { doSwap() }
-
-        animationJob?.invokeOnCompletion {
-            if (it == null) {
-                launchAnimation()
-            }
-        }
-    }
-
-    private suspend fun doSwap() {
-        repeat(2) {
-            swapChildren()
-            delay(2000)
-        }
-    }
-
-    private fun swapNow() {
-        animationJob?.cancel()
-        swapChildren()
-        initAnimation()
-    }
-
-    private fun swapChildren() {
-        backStack.replace(
-            if (backStack.activeRouting == Child1) {
-                Child2
-            } else {
-                Child1
-            }
-        )
-    }
-
     sealed class Routing : Parcelable {
         @Parcelize
         object Child1 : Routing()
@@ -97,8 +51,29 @@ class RootNode(
     override fun resolve(routing: Routing, buildContext: BuildContext): Node =
         when (routing) {
             is Child1 -> ChildNode1(buildContext)
-            is Child2 -> ChildNode2(buildContext, ::swapNow)
+            is Child2 -> ChildNode2(buildContext, ::swapChildren)
         }
+
+    init {
+        initAnimation()
+    }
+
+    private fun initAnimation() {
+        lifecycle.coroutineScope.launch {
+            while (true) {
+                delay(2000)
+                swapChildren()
+            }
+        }
+    }
+
+    private fun swapChildren() {
+        if (backStack.activeRouting == Child1) {
+            backStack.push(Child2)
+        } else {
+            backStack.pop()
+        }
+    }
 
     @Composable
     override fun View(modifier: Modifier) {
@@ -109,7 +84,7 @@ class RootNode(
         ) {
             Children(
                 routingSource = backStack,
-                transitionHandler = rememberBackAndForthSlider(),
+                transitionHandler = rememberBackstackFader { spring(stiffness = Spring.StiffnessVeryLow) },
                 modifier = Modifier.fillMaxSize()
             )
         }
