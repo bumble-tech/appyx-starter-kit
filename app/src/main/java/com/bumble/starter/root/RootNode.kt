@@ -14,17 +14,16 @@ import com.bumble.appyx.core.composable.Children
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
 import com.bumble.appyx.core.node.ParentNode
-import com.bumble.appyx.routingsource.backstack.BackStack
-import com.bumble.appyx.routingsource.backstack.activeRouting
-import com.bumble.appyx.routingsource.backstack.operation.pop
-import com.bumble.appyx.routingsource.backstack.operation.push
-import com.bumble.appyx.routingsource.backstack.transitionhandler.rememberBackstackFader
+import com.bumble.appyx.navmodel.backstack.BackStack
+import com.bumble.appyx.navmodel.backstack.activeRouting
+import com.bumble.appyx.navmodel.backstack.operation.pop
+import com.bumble.appyx.navmodel.backstack.operation.push
+import com.bumble.appyx.navmodel.backstack.transitionhandler.rememberBackstackFader
 import com.bumble.starter.child.ChildNode1
 import com.bumble.starter.child.ChildNode2
 import com.bumble.starter.root.RootNode.Routing
 import com.bumble.starter.root.RootNode.Routing.Child1
 import com.bumble.starter.root.RootNode.Routing.Child2
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
@@ -37,7 +36,7 @@ class RootNode(
     )
 ) : ParentNode<Routing>(
     buildContext = buildContext,
-    routingSource = backStack
+    navModel = backStack
 ) {
 
     sealed class Routing : Parcelable {
@@ -83,7 +82,7 @@ class RootNode(
             modifier = Modifier.fillMaxSize()
         ) {
             Children(
-                routingSource = backStack,
+                navModel = backStack,
                 transitionHandler = rememberBackstackFader { spring(stiffness = Spring.StiffnessVeryLow) },
                 modifier = Modifier.fillMaxSize()
             )
