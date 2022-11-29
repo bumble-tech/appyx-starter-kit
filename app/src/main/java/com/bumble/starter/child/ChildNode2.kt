@@ -14,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
-import com.bumble.starter.ui.theme.md_blue_grey_500
 import com.bumble.starter.ui.theme.md_deep_purple_50
 import com.bumble.starter.ui.theme.md_grey_500
 

@@ -14,42 +14,41 @@ import com.bumble.appyx.core.composable.Children
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
 import com.bumble.appyx.core.node.ParentNode
-import com.bumble.appyx.routingsource.backstack.BackStack
-import com.bumble.appyx.routingsource.backstack.activeRouting
-import com.bumble.appyx.routingsource.backstack.operation.pop
-import com.bumble.appyx.routingsource.backstack.operation.push
-import com.bumble.appyx.routingsource.backstack.transitionhandler.rememberBackstackFader
+import com.bumble.appyx.navmodel.backstack.BackStack
+import com.bumble.appyx.navmodel.backstack.activeElement
+import com.bumble.appyx.navmodel.backstack.operation.pop
+import com.bumble.appyx.navmodel.backstack.operation.push
+import com.bumble.appyx.navmodel.backstack.transitionhandler.rememberBackstackFader
 import com.bumble.starter.child.ChildNode1
 import com.bumble.starter.child.ChildNode2
-import com.bumble.starter.root.RootNode.Routing
-import com.bumble.starter.root.RootNode.Routing.Child1
-import com.bumble.starter.root.RootNode.Routing.Child2
-import kotlinx.coroutines.Job
+import com.bumble.starter.root.RootNode.NavTarget
+import com.bumble.starter.root.RootNode.NavTarget.Child1
+import com.bumble.starter.root.RootNode.NavTarget.Child2
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 
 class RootNode(
     buildContext: BuildContext,
-    private val backStack: BackStack<Routing> = BackStack(
+    private val backStack: BackStack<NavTarget> = BackStack(
         initialElement = Child1,
         savedStateMap = buildContext.savedStateMap
     )
-) : ParentNode<Routing>(
+) : ParentNode<NavTarget>(
     buildContext = buildContext,
-    routingSource = backStack
+    navModel = backStack
 ) {
 
-    sealed class Routing : Parcelable {
+    sealed class NavTarget : Parcelable {
         @Parcelize
-        object Child1 : Routing()
+        object Child1 : NavTarget()
 
         @Parcelize
-        object Child2 : Routing()
+        object Child2 : NavTarget()
     }
 
-    override fun resolve(routing: Routing, buildContext: BuildContext): Node =
-        when (routing) {
+    override fun resolve(navTarget: NavTarget, buildContext: BuildContext): Node =
+        when (navTarget) {
             is Child1 -> ChildNode1(buildContext)
             is Child2 -> ChildNode2(buildContext, ::swapChildren)
         }
@@ -68,7 +67,7 @@ class RootNode(
     }
 
     private fun swapChildren() {
-        if (backStack.activeRouting == Child1) {
+        if (backStack.activeElement == Child1) {
             backStack.push(Child2)
         } else {
             backStack.pop()
@@ -83,7 +82,7 @@ class RootNode(
             modifier = Modifier.fillMaxSize()
         ) {
             Children(
-                routingSource = backStack,
+                navModel = backStack,
                 transitionHandler = rememberBackstackFader { spring(stiffness = Spring.StiffnessVeryLow) },
                 modifier = Modifier.fillMaxSize()
             )

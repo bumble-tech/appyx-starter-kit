@@ -12,7 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
-import com.bumble.starter.ui.theme.md_light_green_500
 import com.bumble.starter.ui.theme.sizzling_red
 
 class ChildNode1(buildContext: BuildContext) : Node(buildContext) {
