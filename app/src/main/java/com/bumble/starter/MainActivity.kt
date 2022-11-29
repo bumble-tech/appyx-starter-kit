@@ -12,7 +12,7 @@ class MainActivity : NodeActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             AppyxStarterKitTheme {
-                NodeHost(integrationPoint = integrationPoint) {
+                NodeHost(integrationPoint = appyxIntegrationPoint) {
                     RootNode(buildContext = it)
                 }
             }
