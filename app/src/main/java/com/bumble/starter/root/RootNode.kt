@@ -21,33 +21,33 @@ import com.bumble.appyx.navmodel.backstack.operation.push
 import com.bumble.appyx.navmodel.backstack.transitionhandler.rememberBackstackFader
 import com.bumble.starter.child.ChildNode1
 import com.bumble.starter.child.ChildNode2
-import com.bumble.starter.root.RootNode.Routing
-import com.bumble.starter.root.RootNode.Routing.Child1
-import com.bumble.starter.root.RootNode.Routing.Child2
+import com.bumble.starter.root.RootNode.NavTarget
+import com.bumble.starter.root.RootNode.NavTarget.Child1
+import com.bumble.starter.root.RootNode.NavTarget.Child2
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 
 class RootNode(
     buildContext: BuildContext,
-    private val backStack: BackStack<Routing> = BackStack(
+    private val backStack: BackStack<NavTarget> = BackStack(
         initialElement = Child1,
         savedStateMap = buildContext.savedStateMap
     )
-) : ParentNode<Routing>(
+) : ParentNode<NavTarget>(
     buildContext = buildContext,
     navModel = backStack
 ) {
 
-    sealed class Routing : Parcelable {
+    sealed class NavTarget : Parcelable {
         @Parcelize
-        object Child1 : Routing()
+        object Child1 : NavTarget()
 
         @Parcelize
-        object Child2 : Routing()
+        object Child2 : NavTarget()
     }
 
-    override fun resolve(navTarget: Routing, buildContext: BuildContext): Node =
+    override fun resolve(navTarget: NavTarget, buildContext: BuildContext): Node =
         when (navTarget) {
             is Child1 -> ChildNode1(buildContext)
             is Child2 -> ChildNode2(buildContext, ::swapChildren)
