@@ -1,54 +1,55 @@
 package com.bumble.starter.root
 
 import android.os.Parcelable
-import androidx.compose.animation.core.Spring
-import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.coroutineScope
-import com.bumble.appyx.core.composable.Children
-import com.bumble.appyx.core.modality.BuildContext
-import com.bumble.appyx.core.node.Node
-import com.bumble.appyx.core.node.ParentNode
-import com.bumble.appyx.navmodel.backstack.BackStack
-import com.bumble.appyx.navmodel.backstack.activeElement
-import com.bumble.appyx.navmodel.backstack.operation.pop
-import com.bumble.appyx.navmodel.backstack.operation.push
-import com.bumble.appyx.navmodel.backstack.transitionhandler.rememberBackstackFader
+import com.bumble.appyx.components.backstack.BackStack
+import com.bumble.appyx.components.backstack.BackStackModel
+import com.bumble.appyx.components.backstack.activeElement
+import com.bumble.appyx.components.backstack.operation.pop
+import com.bumble.appyx.components.backstack.operation.push
+import com.bumble.appyx.components.backstack.ui.parallax.BackStackParallax
+import com.bumble.appyx.navigation.composable.AppyxComponent
+import com.bumble.appyx.navigation.modality.BuildContext
+import com.bumble.appyx.navigation.node.Node
+import com.bumble.appyx.navigation.node.ParentNode
 import com.bumble.starter.child.ChildNode1
 import com.bumble.starter.child.ChildNode2
-import com.bumble.starter.root.RootNode.NavTarget
-import com.bumble.starter.root.RootNode.NavTarget.Child1
-import com.bumble.starter.root.RootNode.NavTarget.Child2
+import com.bumble.starter.root.RootNode.InteractionTarget
+import com.bumble.starter.root.RootNode.InteractionTarget.Child1
+import com.bumble.starter.root.RootNode.InteractionTarget.Child2
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 
 class RootNode(
     buildContext: BuildContext,
-    private val backStack: BackStack<NavTarget> = BackStack(
-        initialElement = Child1,
-        savedStateMap = buildContext.savedStateMap
+    private val backStack: BackStack<InteractionTarget> = BackStack(
+        model = BackStackModel(
+            initialTargets = listOf(Child1),
+            savedStateMap = buildContext.savedStateMap
+        ),
+        visualisation = { BackStackParallax(it) }
     )
-) : ParentNode<NavTarget>(
+) : ParentNode<InteractionTarget>(
     buildContext = buildContext,
-    navModel = backStack
+    appyxComponent = backStack
 ) {
 
-    sealed class NavTarget : Parcelable {
+    sealed class InteractionTarget : Parcelable {
         @Parcelize
-        object Child1 : NavTarget()
+        data object Child1 : InteractionTarget()
 
         @Parcelize
-        object Child2 : NavTarget()
+        data object Child2 : InteractionTarget()
     }
 
-    override fun resolve(navTarget: NavTarget, buildContext: BuildContext): Node =
-        when (navTarget) {
+    override fun resolve(interactionTarget: InteractionTarget, buildContext: BuildContext): Node =
+        when (interactionTarget) {
             is Child1 -> ChildNode1(buildContext)
             is Child2 -> ChildNode2(buildContext, ::swapChildren)
         }
@@ -67,7 +68,7 @@ class RootNode(
     }
 
     private fun swapChildren() {
-        if (backStack.activeElement == Child1) {
+        if (backStack.model.activeElement.interactionTarget == Child1) {
             backStack.push(Child2)
         } else {
             backStack.pop()
@@ -81,9 +82,8 @@ class RootNode(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxSize()
         ) {
-            Children(
-                navModel = backStack,
-                transitionHandler = rememberBackstackFader { spring(stiffness = Spring.StiffnessVeryLow) },
+            AppyxComponent(
+                appyxComponent = backStack,
                 modifier = Modifier.fillMaxSize()
             )
         }
