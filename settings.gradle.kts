@@ -27,4 +27,5 @@ rootProject.name = "AppyxStarterKit"
 include(":androidApp")
 include(":desktopApp")
 include(":webApp")
+include(":ios")
 include(":shared")

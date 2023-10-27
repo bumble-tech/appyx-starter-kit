@@ -27,6 +27,10 @@ kotlin {
         browser()
     }
 
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
+
     sourceSets {
         val commonMain by getting {
             dependencies {
@@ -61,4 +65,7 @@ dependencies {
     add("kspAndroid", libs.appyx.mutable.ui.processor)
     add("kspDesktop", libs.appyx.mutable.ui.processor)
     add("kspJs", libs.appyx.mutable.ui.processor)
+    add("kspIosArm64", libs.appyx.mutable.ui.processor)
+    add("kspIosX64", libs.appyx.mutable.ui.processor)
+    add("kspIosSimulatorArm64", libs.appyx.mutable.ui.processor)
 }
