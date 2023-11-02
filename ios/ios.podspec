@@ -1,7 +1,10 @@
 Pod::Spec.new do |spec|
     spec.name                     = 'ios'
     spec.version                  = '1.0.0'
+    spec.homepage                 = 'https://bumble-tech.github.io/appyx/'
     spec.source                   = { :http=> ''}
+    spec.authors                  = 'https://github.com/bumble-tech/'
+    spec.license                  = 'Apache License, Version 2.0'
     spec.summary                  = 'appyx-starter-kit iOS module'
     spec.vendored_frameworks      = 'build/cocoapods/framework/ios.framework'
     spec.libraries                = 'c++'

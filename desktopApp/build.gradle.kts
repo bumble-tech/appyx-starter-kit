@@ -6,7 +6,7 @@ plugins {
 kotlin {
     jvm("desktop") {
         compilations.all {
-            kotlinOptions.jvmTarget = libs.versions.jvmTarget.get()
+            kotlinOptions.jvmTarget = libs.versions.jvm.target.get()
         }
     }
     sourceSets {

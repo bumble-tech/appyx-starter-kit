@@ -14,12 +14,15 @@ kotlin {
     cocoapods {
         version = "1.0.0"
         summary = "appyx-starter-kit iOS module"
+        homepage = "https://bumble-tech.github.io/appyx/"
         ios.deploymentTarget = "16.4"
         podfile = project.file("../iosApp/Podfile")
         framework {
             baseName = "ios"
             isStatic = true
         }
+        license = "Apache License, Version 2.0"
+        authors = "https://github.com/bumble-tech/"
     }
 
     sourceSets {

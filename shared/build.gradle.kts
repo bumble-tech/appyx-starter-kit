@@ -11,13 +11,13 @@ plugins {
 kotlin {
     androidTarget {
         compilations.all {
-            kotlinOptions.jvmTarget = libs.versions.jvmTarget.get()
+            kotlinOptions.jvmTarget = libs.versions.jvm.target.get()
         }
     }
 
     jvm("desktop") {
         compilations.all {
-            kotlinOptions.jvmTarget = libs.versions.jvmTarget.get()
+            kotlinOptions.jvmTarget = libs.versions.jvm.target.get()
         }
     }
 
@@ -56,7 +56,7 @@ android {
     namespace = "com.bumble.appyx.shared"
     compileSdk = 34
     defaultConfig {
-        minSdk = 21
+        minSdk = libs.versions.android.min.sdk.get().toInt()
     }
 }
 
