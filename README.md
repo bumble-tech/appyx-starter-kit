@@ -2,7 +2,9 @@
 
 # Appyx starter kit
 
-This respository contains a baseline project with minimal setup to bootstrap starting an Appyx app from scratch.
+This repository contains a baseline Compose Multiplatform project with minimal setup to bootstrap starting an Appyx app from scratch. All the available platforms are already configured for you: Android, iOS, Desktop and Web.
+
+Please refer to JetBrains documentation [here](https://www.jetbrains.com/lp/compose-multiplatform/) for more details about each one of the supported platform.  
 
 Feel free to download it and modify it to your needs.
 
@@ -18,7 +20,7 @@ https://bumble-tech.github.io/appyx/
 ## License
 
 <pre>
-Copyright 2022 Bumble.
+Copyright 2023 Bumble.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
