@@ -6,6 +6,8 @@ This repository contains a baseline Compose Multiplatform project with minimal s
 
 Please refer to JetBrains documentation [here](https://www.jetbrains.com/lp/compose-multiplatform/) for more details about each one of the supported platform.  
 
+If you're looking for a Android-specific setup, please check out `main` branch [https://github.com/bumble-tech/appyx-starter-kit](here).
+
 Feel free to download it and modify it to your needs.
 
 
