@@ -2,10 +2,9 @@
 
 # Appyx starter kit
 
-This respository contains a baseline project with minimal setup to bootstrap starting an Appyx app from scratch.
+This repository contains a baseline project with minimal setup to bootstrap the creation of an Appyx app from scratch. The `main` branch is specifically tailored to provide Android-specific setup. If you're looking for a Comnpose Multiplatform setup, please check out `multiplatform` branch [https://github.com/bumble-tech/appyx-starter-kit/tree/multiplatform](here).
 
 Feel free to download it and modify it to your needs.
-
 
 ## Appyx
 
@@ -18,7 +17,7 @@ https://bumble-tech.github.io/appyx/
 ## License
 
 <pre>
-Copyright 2022 Bumble.
+Copyright 2023 Bumble.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
