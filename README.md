@@ -2,9 +2,11 @@
 
 # Appyx starter kit
 
-This repository contains a baseline project with minimal setup to bootstrap the creation of an Appyx app from scratch. The `main` branch is tailored to provide an Android-specific setup. If you're looking for a Compose Multiplatform setup, please check out the `multiplatform` branch [here](https://github.com/bumble-tech/appyx-starter-kit/tree/multiplatform).
+This repository contains a baseline project with minimal setup to bootstrap the creation of an Appyx app from scratch. Feel free to download it and modify it to your needs.
 
-Feel free to download it and modify it to your needs.
+- **Android-specific setup**: Check the `main` branch
+- **Compose Multiplatform setup**: Check the `multiplatform` [branch](https://github.com/bumble-tech/appyx-starter-kit/tree/multiplatform).
+
 
 ## Appyx
 
